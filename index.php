@@ -1,18 +1,25 @@
-<?php
-function getUserIpAddr() {
-    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-        // Check IP from internet
-        $ip = $_SERVER['HTTP_CLIENT_IP'];
-    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-        // Check IP is passed from proxy
-        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-    } else {
-        // Check IP address from remote address
-        $ip = $_SERVER['REMOTE_ADDR'];
-    }
-    echo $ip;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>Hey sigmas, here's a gyatt</p>
+    <img src="../images/blue_duckass.gif">
+    <br>
+    <p>Your IP Address is: <span id="ip-address">Loading...</span></p>
 
-getUserIpAddr();
-?>
-
+    <script>
+        fetch('get_ip.php')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('ip-address').textContent = data;
+            })
+            .catch(error => {
+                console.error('Error fetching the IP address:', error);
+            });
+    </script>
+</body>
+</html>
